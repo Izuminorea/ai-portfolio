@@ -101,7 +101,7 @@ Message:
 
             print("EMAIL:", EMAIL)
 
-            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30)
             server.starttls()
 
             server.login(EMAIL, PASSWORD)
