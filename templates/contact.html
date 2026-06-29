@@ -162,7 +162,7 @@
                 get back to you as soon as possible.
             </p>
 
-            <form action="https://api.web3forms.com/submit" method="POST">
+            <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
 
     <!-- Web3Forms Access Key -->
     <input
@@ -170,48 +170,53 @@
         name="access_key"
         value="6ec6312f-7181-4b58-bd13-8fb49326b3f2">
 
-    <!-- Email Subject -->
-    <input
-        type="hidden"
-        name="subject"
-        value="New Portfolio Inquiry">
-
     <!-- Sender Name -->
     <input
         type="hidden"
         name="from_name"
         value="Aeron AI Portfolio">
 
-    <!-- Redirect after success -->
+    <!-- Redirect after successful submission -->
     <input
         type="hidden"
         name="redirect"
         value="https://aeron-ai-portfolio.onrender.com/success">
 
+    <!-- Optional: Anti-spam -->
+    <input
+        type="checkbox"
+        name="botcheck"
+        style="display: none;">
+
+    <!-- Full Name -->
     <input
         type="text"
         name="fullname"
         placeholder="Full Name"
         required>
 
+    <!-- Email -->
     <input
         type="email"
         name="email"
         placeholder="Email Address"
         required>
 
+    <!-- Subject -->
     <input
         type="text"
         name="subject"
         placeholder="Subject"
         required>
 
+    <!-- Message -->
     <textarea
         name="message"
         rows="8"
         placeholder="Tell me about your project..."
         required></textarea>
 
+    <!-- Submit Button -->
     <button type="submit" id="sendBtn">
 
         <span class="btn-text">
