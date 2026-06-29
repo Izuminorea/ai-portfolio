@@ -92,17 +92,35 @@ Message:
 
         try:
 
+            # Check if environment variables exist
+            if not EMAIL:
+                return "ERROR: EMAIL environment variable is missing."
+
+            if not PASSWORD:
+                return "ERROR: PASSWORD environment variable is missing."
+
+            print("EMAIL:", EMAIL)
+
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
+
             server.login(EMAIL, PASSWORD)
+
             server.send_message(msg)
+
             server.quit()
 
             return render_template("success.html")
 
         except Exception as e:
 
-            return str(e)
+            print("SMTP ERROR:", repr(e))
+
+            return f"""
+            <h2>Email Failed</h2>
+            <p><strong>Error:</strong></p>
+            <pre>{repr(e)}</pre>
+            """
 
     return render_template("contact.html")
 
