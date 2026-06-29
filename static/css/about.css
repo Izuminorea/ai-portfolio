@@ -1,0 +1,523 @@
+     /* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+background:#050505;
+color:white;
+padding:0 40px;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar{
+height:90px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:1px;
+
+}
+
+.nav-links{
+display:flex;
+gap:40px;
+list-style:none;
+}
+
+.nav-links a{
+color:#bdbdbd;
+text-decoration:none;
+font-size:15px;
+transition:.3s;
+}
+
+.nav-links a:hover{
+
+    color:white;
+
+}
+
+.active{
+
+    color:#5f6fff !important;
+
+}
+
+.hire-btn{
+
+    padding:14px 32px;
+    border-radius:40px;
+    border:1px solid #5f6fff;
+    color:#5f6fff;
+    text-decoration:none;
+    transition:.3s;
+
+}
+
+.hire-btn:hover{
+
+    background:#5f6fff;
+    color:white;
+
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero{
+
+    min-height:80vh;
+
+    display:grid;
+
+    grid-template-columns:60% 40%;
+
+    align-items:center;
+
+    gap:60px;
+
+}
+
+.tag{
+
+    color:#5f6fff;
+    letter-spacing:2px;
+    margin-bottom:20px;
+
+}
+
+.hero h1{
+
+    font-size:68px;
+    line-height:1.1;
+    margin-bottom:25px;
+
+}
+
+.hero span{
+
+    color:#6d6eff;
+
+}
+
+.hero p{
+
+    color:#b7b7b7;
+    font-size:18px;
+    max-width:700px;
+
+}
+
+/* ===========================
+   HERO CARD
+=========================== */
+
+.hero-card{
+
+    background:#0b0b0b;
+
+    border:1px solid #181818;
+
+    border-radius:25px;
+
+    padding:35px;
+
+}
+
+.stat{
+
+    padding:22px 0;
+
+    border-bottom:1px solid #1c1c1c;
+
+}
+
+.stat:last-child{
+
+    border:none;
+
+}
+
+.stat h2{
+
+    color:#6d6eff;
+
+    font-size:36px;
+
+}
+
+.stat span{
+
+    color:#b5b5b5;
+
+}
+
+/* ===========================
+   SECTION
+=========================== */
+
+section{
+
+    margin-top:100px;
+
+}
+
+section h2{
+
+    font-size:40px;
+    margin-bottom:40px;
+
+}
+
+/* ===========================
+   SERVICES
+=========================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:#0b0b0b;
+
+    border:1px solid #1b1b1b;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    transition:.35s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#5f6fff;
+
+}
+
+.card h3{
+
+    margin-bottom:18px;
+
+}
+
+.card p{
+
+    color:#b5b5b5;
+
+}
+
+/* ===========================
+   MISSION
+=========================== */
+
+.mission-box{
+
+    background:#0b0b0b;
+
+    border:1px solid #1a1a1a;
+
+    border-radius:25px;
+
+    padding:50px;
+
+}
+
+.mission-box p{
+
+    color:#b5b5b5;
+    font-size:17px;
+
+}
+
+/* ===========================
+   SKILLS
+=========================== */
+
+.skill-grid{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+.skill-grid span{
+
+    background:#111111;
+
+    border:1px solid #202020;
+
+    padding:14px 24px;
+
+    border-radius:50px;
+
+    transition:.3s;
+
+}
+
+.skill-grid span:hover{
+
+    background:#5f6fff;
+
+    border-color:#5f6fff;
+
+}
+
+/* ===========================
+   CTA
+=========================== */
+
+.cta{
+
+    text-align:center;
+
+    background:#0b0b0b;
+
+    border:1px solid #1b1b1b;
+
+    border-radius:30px;
+
+    padding:70px 40px;
+
+}
+
+.cta h2{
+
+    font-size:42px;
+
+}
+
+.cta p{
+
+    color:#b5b5b5;
+
+    max-width:650px;
+
+    margin:25px auto;
+
+}
+
+.cta a{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    text-decoration:none;
+
+    padding:18px 45px;
+
+    background:linear-gradient(90deg,#5f6fff,#7b61ff);
+
+    color:white;
+
+    border-radius:50px;
+
+    transition:.3s;
+
+}
+
+.cta a:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 35px rgba(95,111,255,.4);
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+
+    margin-top:90px;
+
+    border-top:1px solid #181818;
+
+    padding:35px;
+
+    text-align:center;
+
+    color:#888;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1100px){
+
+.hero{
+
+grid-template-columns:1fr;
+
+}
+
+.cards{
+
+grid-template-columns:1fr;
+
+}
+
+.hero h1{
+
+font-size:52px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+body{
+
+padding:0 20px;
+
+}
+
+.navbar{
+
+flex-direction:column;
+
+height:auto;
+
+gap:20px;
+
+padding:20px 0;
+
+}
+
+.nav-links{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+.hero h1{
+
+font-size:40px;
+
+}
+
+.hero p{
+
+font-size:16px;
+
+}
+
+.cta h2{
+
+font-size:32px;
+
+}
+
+}
+
+/* LOADER */
+
+#loader{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:#050505;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+    transition:.5s;
+
+}
+
+.spinner{
+
+    width:70px;
+    height:70px;
+
+    border:5px solid #222;
+
+    border-top:5px solid #5f6fff;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+}
+
+#loader h2{
+
+    margin-top:25px;
+
+    color:white;
+
+    font-size:18px;
+
+    letter-spacing:1px;
+
+}
+
+@keyframes spin{
+
+    0%{
+
+        transform:rotate(0deg);
+
+    }
+
+    100%{
+
+        transform:rotate(360deg);
+
+    }
+
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Home | Aeron Paul Salipsip</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/Copilot_20260629_100726.png') }}">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">
+        AERON PAUL SALIPSIP
+    </div>
+
+    <ul class="nav-links">
+        <li><a class="active" href="/">HOME</a></li>
+        <li><a href="/portfolio">PORTFOLIO</a></li>
+        <li><a href="/about">ABOUT</a></li>
+        <li><a href="/tools">TOOLS</a></li>
+        <li><a href="/contact">CONTACT</a></li>
+    </ul>
+
+    <a href="/contact" class="hire-btn">
+        HIRE ME
+    </a>
+
+</nav>
+
+<!-- MAIN SECTION -->
+<section class="main-section">
+
+    <!-- LEFT -->
+    <div class="left-content">
+
+        <p class="tag">
+            AI ADS CREATOR / WEB DEVELOPMENT
+        </p>
+
+        <h1>
+            Building creative
+        <span>AI-powered visuals</span>
+            and modern websites
+            while growing through
+            every opportunity.
+        </h1>
+
+        <p class="description">
+    I'm an aspiring AI Creative Designer and Entry-Level Web Developer who enjoys creating AI-generated images, promotional videos, and responsive websites. I'm eager to learn, open to training, and committed to delivering quality work while gaining real-world experience.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/portfolio" class="primary-btn">
+                VIEW PORTFOLIO →
+            </a>
+
+            <a href="/contact" class="secondary-btn">
+                CONTACT ME
+            </a>
+
+        </div>
+
+        <!-- TOOLS -->
+        <div class="tools">
+
+            <h3>TOOLS I USE</h3>
+
+<div class="tool-grid">
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/openai1.png') }}" alt="ChatGPT">
+    <span>ChatGPT</span>
+    </div>
+
+    <div class="tool-card"> <div class="tool-icon">◐</div> <span>Nano Banana Pro</span> </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/copilot-color.svg') }}" alt="Microsoft Copilot">
+    <span>Microsoft Copilot</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/pixverse-color.svg') }}" alt="PixVerse">
+    <span>PixVerse</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/OIP.png') }}" alt="Canva">
+    <span>Canva</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/capcut-logo-square-rounded-capcut-logo-capcut-logo-free-download-free-png.webp') }}" alt="CapCut">
+    <span>CapCut</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/html-5.png') }}" alt="HTML5">
+    <span>HTML5</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/css-3.png') }}" alt="CSS3">
+    <span>CSS3</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/js.png') }}" alt="JavaScript">
+    <span>JavaScript</span>
+    </div>
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/python1.png') }}" alt="Python">
+    <span>Python</span>
+    </div>
+
+
+    <div class="tool-card">
+    <img src="{{ url_for('static', filename='icons/flask1.png') }}" alt="Flask">
+    <span>Flask</span>
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-content">
+
+        <div class="portfolio-header">
+
+            <h2>
+                SELECTED AI AD CREATIVE WORK
+            </h2>
+
+            <a href="/portfolio">
+                VIEW ALL →
+            </a>
+
+        </div>
+
+        <div class="portfolio-grid">
+
+            {% for work in works[:8] %}
+
+<div class="portfolio-card">
+
+    {% if work[4] == "image" %}
+
+        <img
+            src="{{ url_for('static', filename='uploads/' + work[3]) }}"
+            alt="{{ work[1] }}">
+
+    {% else %}
+
+        <video
+            class="portfolio-video"
+            muted
+            autoplay
+            loop
+            playsinline>
+
+            <source
+                src="{{ url_for('static', filename='uploads/' + work[3]) }}"
+                type="video/mp4">
+
+        </video>
+
+    {% endif %}
+
+    <h4 style="margin-top:10px;">
+        {{ work[1] }}
+    </h4>
+
+    <div class="prompt">
+        {{ work[5] if work[5] else "No prompt available" }}
+    </div>
+
+</div>
+
+{% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BOTTOM CARDS -->
+<section class="bottom-section">
+
+    <div class="info-card">
+
+        <div class="icon">✎</div>
+
+        <div>
+            <h4>WHAT I DO</h4>
+            <p>AI-generated images, promotional videos, and responsive web development.</p>
+        </div>
+
+    </div>
+
+    <div class="info-card">
+
+        <div class="icon">🌱</div>
+
+        <div>
+            <h4>CURRENT LEVEL</h4>
+            <p>Entry-Level AI Creative Designer & Web Developer, eager to learn and grow.</p>
+        </div>
+
+    </div>
+
+    <div class="info-card">
+
+        <div class="icon">◔</div>
+
+        <div>
+            <h4>AVAILABILITY</h4>
+            <p>Available for freelance and entry-level opportunities (20–40 hours/week).</p>
+        </div>
+
+    </div>
+
+    <div class="info-card">
+
+        <div class="icon">✉</div>
+
+        <div>
+            <h4>LET'S CONNECT</h4>
+            <p>aeronsalipsip@gmail.com</p>
+        </div>
+
+    </div>
+
+</section>
+<div id="loader">
+
+    <div class="spinner"></div>
+
+    <h2>Loading Home...</h2>
+
+</div>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

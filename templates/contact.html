@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Aeron Paul Salipsip</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/Copilot_20260629_100726.png') }}">
+
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        AERON PAUL SALIPSIP
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="/">HOME</a></li>
+
+        <li><a href="/portfolio">PORTFOLIO</a></li>
+
+        <li><a href="/about">ABOUT</a></li>
+
+        <li><a href="/tools">TOOLS</a></li>
+
+        <li><a class="active" href="/contact">CONTACT</a></li>
+
+    </ul>
+
+    <a href="/contact" class="hire-btn">
+        HIRE ME
+    </a>
+
+</nav>
+
+<!-- ================= CONTACT ================= -->
+
+<section class="contact-page">
+
+    <!-- LEFT -->
+
+    <div class="contact-left">
+
+        <p class="tag">
+            CONTACT
+        </p>
+
+        <h1>
+            Let's Work <span>Together.</span>
+        </h1>
+
+        <p class="description">
+
+            Looking for someone who can create
+            scroll-stopping AI-generated ads,
+            product images, or creative visuals?
+
+            I'd love to hear about your project.
+
+        </p>
+
+        <div class="contact-info">
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    ✉
+                </div>
+
+                <div>
+
+                    <h3>Email</h3>
+
+                    <p>
+                        aeronsalipsip@gmail.com
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    ⌂
+                </div>
+
+                <div>
+
+                    <h3>Location</h3>
+
+                    <p>
+                        Philippines
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    ⏱
+                </div>
+
+                <div>
+
+                    <h3>Availability</h3>
+
+                    <p>
+                        20–40 Hours Per Week
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h3>Response Time</h3>
+
+                    <p>
+                        Usually Within 24 Hours
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="contact-right">
+
+        <div class="form-card">
+
+            <h2>
+                Send Me a Message
+            </h2>
+
+            <p>
+                Fill out the form below and I'll
+                get back to you as soon as possible.
+            </p>
+
+            <form action="/contact" method="POST">
+
+    <input
+        type="text"
+        name="fullname"
+        placeholder="Full Name"
+        required>
+
+    <input
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        required>
+
+    <input
+        type="text"
+        name="subject"
+        placeholder="Subject"
+        required>
+
+    <textarea
+        name="message"
+        rows="8"
+        placeholder="Tell me about your project..."
+        required></textarea>
+
+    <button type="submit" id="sendBtn">
+
+    <span class="btn-text">
+        SEND MESSAGE →
+    </span>
+
+    <span class="spinner"></span>
+
+</button>
+
+</form>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SOCIAL ================= -->
+
+<section class="social-section">
+
+    <h2>
+        Connect With Me
+    </h2>
+
+    <div class="social-grid">
+
+        <a href="https://www.linkedin.com/in/aeron-paul-salipsip-95a64719a/" class="social-card">
+
+            <h3>LinkedIn</h3>
+
+            <p>
+                Professional Profile
+            </p>
+
+        </a>
+
+        <a href="https://t.me/norealuap" class="social-card">
+
+            <h3>Telegram</h3>
+
+            <p>
+                Personal Updates
+            </p>
+
+        </a>
+
+        <a href="#" class="social-card">
+
+            <h3>Instagram</h3>
+
+            <p>
+                AI Creative Showcase
+            </p>
+
+        </a>
+
+        <a href="#" class="social-card">
+
+            <h3>GitHub</h3>
+
+            <p>
+                Web Development Projects
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+
+        © 2026 Aeron Paul Salipsip
+
+    </p>
+
+</footer>
+<div id="loader">
+
+    <div class="spinner-contact"></div>
+
+    <h2>Loading Contact...</h2>
+
+</div>
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+</body>
+</html>

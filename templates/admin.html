@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/Copilot_20260629_100726.png') }}">
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+AI Portfolio Admin
+</div>
+
+<a href="/" class="website-btn">
+View Website
+</a>
+
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<h2>{{ items|length }}</h2>
+<p>Total Portfolio Items</p>
+</div>
+
+<div class="stat-card">
+<h2>AI</h2>
+<p>Creative Portfolio</p>
+</div>
+
+<div class="stat-card">
+<h2>24/7</h2>
+<p>Portfolio Online</p>
+</div>
+
+<div class="stat-card">
+<h2>PRO</h2>
+<p>Dashboard Access</p>
+</div>
+
+</div>
+
+<div class="main">
+
+<!-- UPLOAD PANEL -->
+
+<div class="upload-card">
+
+<h2>Upload New Work</h2>
+
+<form method="POST"
+action="/admin/upload"
+enctype="multipart/form-data">
+
+<label>Title</label>
+<input
+type="text"
+name="title"
+placeholder="Enter title"
+required>
+
+<label>Prompt / Description</label>
+<textarea
+    name="description"
+    placeholder="Enter prompt or description"
+    rows="4"
+    style="width:100%; padding:14px; background:#111; border:1px solid #222; border-radius:12px; color:white; margin-bottom:20px; resize:none;">
+</textarea>
+
+<label>Category</label>
+<select name="category">
+<option value="image">Image</option>
+<option value="video">Video</option>
+</select>
+
+<label>Upload File</label>
+<input
+type="file"
+name="file"
+required>
+
+<button
+type="submit"
+class="upload-btn">
+
+Upload Portfolio Item
+
+</button>
+
+</form>
+
+</div>
+
+
+<!-- GALLERY -->
+
+<div class="gallery-card">
+
+<div class="gallery-header">
+
+<h2>Portfolio Gallery</h2>
+
+</div>
+
+{% if items %}
+
+<div class="gallery-grid">
+
+{% for item in items %}
+
+<div class="work-card">
+
+{% if item[4] == "image" %}
+
+<img
+    src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+    alt="{{ item[1] }}">
+
+{% else %}
+
+<video
+    class="admin-video"
+    muted
+    autoplay
+    loop
+    playsinline>
+
+    <source
+        src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+        type="video/mp4">
+
+</video>
+
+{% endif %}
+
+<div class="work-content">
+
+<h3>{{ item[1] }}</h3>
+
+<p>{{ item[2] }}</p>
+
+<div class="actions">
+
+    <button
+    type="button"
+    class="edit-btn"
+    data-id="{{ item[0] }}"
+    data-title="{{ item[1] }}"
+    data-category="{{ item[2] }}"
+    data-description="{{ item[5] or '' }}"
+    onclick="openEditModal(this)">
+
+    Edit
+
+</button>
+
+    <a
+        href="/delete/{{ item[0] }}"
+        class="delete-btn"
+        onclick="return confirm('Delete this item?')">
+
+        Delete
+
+    </a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty">
+No portfolio items uploaded yet.
+</div>
+
+{% endif %}
+
+</div>
+</div>
+</div>
+
+<div id="editModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeEditModal()">&times;</span>
+
+        <h2>Edit Portfolio</h2>
+
+        <form
+    id="editForm"
+    method="POST"
+    enctype="multipart/form-data">
+
+    <label>Title</label>
+
+    <input
+        type="text"
+        id="editTitle"
+        name="title"
+        required>
+
+    <label>Type</label>
+
+    <select
+        id="editCategory"
+        name="category"
+        required>
+
+        <option value="image">Image</option>
+        <option value="video">Video</option>
+
+    </select>
+
+    <label>Prompt</label>
+
+    <textarea
+        id="editDescription"
+        name="description"
+        rows="8"
+        required></textarea>
+
+    <label>Replace File (Optional)</label>
+
+    <input
+        type="file"
+        id="editFile"
+        name="file"
+        accept="image/*,video/*">
+
+    <button type="submit">
+
+        Save Changes
+
+    </button>
+
+</form>
+
+    </div>
+
+</div>
+
+<a href="/logout" class="website-btn">Logout</a>
+
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

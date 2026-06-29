@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio | Aeron Paul Salipsip</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/Copilot_20260629_100726.png') }}">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="logo">AERON PAUL SALIPSIP</div>
+
+    <ul class="nav-links">
+        <li><a href="/">HOME</a></li>
+        <li><a class="active" href="/portfolio">PORTFOLIO</a></li>
+        <li><a href="/about">ABOUT</a></li>
+        <li><a href="/tools">TOOLS</a></li>
+        <li><a href="/contact">CONTACT</a></li>
+    </ul>
+
+    <a href="/contact" class="hire-btn">HIRE ME</a>
+
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+    <h1>My Portfolio</h1>
+    <p>A collection of AI-generated ad creatives designed for high conversion.</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+
+    <button class="filter-btn" onclick="filterCards('all')">All</button>
+    <button class="filter-btn" onclick="filterCards('image')">Image Ads</button>
+    <button class="filter-btn" onclick="filterCards('video')">Video Ads</button>
+
+</div>
+
+<!-- MODAL -->
+<div id="promptModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal()">×</span>
+
+        <div id="modalMedia"></div>
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalPrompt"></p>
+
+        <button onclick="copyPrompt()">Copy Prompt</button>
+
+    </div>
+</div>
+
+<!-- GRID -->
+<div class="portfolio-grid-full">
+
+    {% for item in items %}
+
+    <div class="card"
+     data-category="{{ item[2] }}"
+     data-title="{{ item[1] }}"
+     data-prompt="{{ item[5] }}"
+     data-file="{{ url_for('static', filename='uploads/' + item[3]) }}"
+     data-type="{{ item[4] }}"
+     onclick="openModal(this)">
+
+        {% if item[4] == "image" %}
+
+<img
+    src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+    alt="{{ item[1] }}">
+
+{% else %}
+
+<video
+    class="portfolio-video"
+    muted
+    loop
+    autoplay
+    playsinline>
+
+    <source
+        src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+        type="video/mp4">
+
+</video>
+
+{% endif %}
+
+        <div class="card-body">
+            <h3>{{ item[1] }}</h3>
+
+            <p>
+                {{ item[5][:120] if item[5] else 'No description yet' }}
+            </p>
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+<div id="loader">
+
+    <div class="spinner"></div>
+
+    <h2>Loading Portfolio...</h2>
+
+</div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
