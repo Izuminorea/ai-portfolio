@@ -10,8 +10,8 @@ app = Flask(__name__)
 EMAIL = os.environ.get("EMAIL")
 PASSWORD = os.environ.get("PASSWORD")
 
-USERNAME = "admin"
-PASSWORD_LOGIN = "qwerty10"
+USERNAME = os.environ.get("ADMIN_USERNAME")
+PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD")
 
 app.secret_key = os.environ.get("SECRET_KEY")
 
