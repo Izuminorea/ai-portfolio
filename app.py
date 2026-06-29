@@ -7,13 +7,13 @@ from flask import session
 
 app = Flask(__name__)
 
-EMAIL = "aeronsalipsip@Gmail.com"
-PASSWORD = "ctbt yshz gehe efqh"
+EMAIL = os.environ.get("EMAIL")
+PASSWORD = os.environ.get("PASSWORD")
 
 USERNAME = "admin"
 PASSWORD_LOGIN = "qwerty10"
 
-app.secret_key = "102819"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 UPLOAD_FOLDER = "static/uploads"
