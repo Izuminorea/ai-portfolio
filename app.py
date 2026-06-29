@@ -61,6 +61,11 @@ def portfolio():
 def contact():
     return render_template("contact.html")
 
+# SUCCESS PAGE
+@app.route("/success")
+def success():
+    return render_template("success.html")
+
 # ABOUT PAGE
 @app.route("/about")
 def about():
