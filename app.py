@@ -1,14 +1,9 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
-import smtplib
-from email.mime.text import MIMEText
 from flask import session
 
 app = Flask(__name__)
-
-EMAIL = os.environ.get("EMAIL")
-PASSWORD = os.environ.get("PASSWORD")
 
 USERNAME = os.environ.get("ADMIN_USERNAME")
 PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD")
@@ -62,66 +57,8 @@ def portfolio():
     return render_template("portfolio.html", items=items)
 
 #CONTACT PAGE
-
-@app.route("/contact", methods=["GET", "POST"])
+@app.route("/contact")
 def contact():
-
-    if request.method == "POST":
-
-        fullname = request.form["fullname"]
-        email = request.form["email"]
-        subject = request.form["subject"]
-        message = request.form["message"]
-
-        body = f"""
-New Portfolio Message
-
-Name: {fullname}
-Email: {email}
-Subject: {subject}
-
-Message:
-{message}
-"""
-
-        msg = MIMEText(body)
-
-        msg["Subject"] = subject
-        msg["From"] = EMAIL
-        msg["To"] = EMAIL
-
-        try:
-
-            # Check if environment variables exist
-            if not EMAIL:
-                return "ERROR: EMAIL environment variable is missing."
-
-            if not PASSWORD:
-                return "ERROR: PASSWORD environment variable is missing."
-
-            print("EMAIL:", EMAIL)
-
-            server = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30)
-            server.starttls()
-
-            server.login(EMAIL, PASSWORD)
-
-            server.send_message(msg)
-
-            server.quit()
-
-            return render_template("success.html")
-
-        except Exception as e:
-
-            print("SMTP ERROR:", repr(e))
-
-            return f"""
-            <h2>Email Failed</h2>
-            <p><strong>Error:</strong></p>
-            <pre>{repr(e)}</pre>
-            """
-
     return render_template("contact.html")
 
 # ABOUT PAGE
