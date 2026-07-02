@@ -47,13 +47,11 @@
 
 .portfolio-video{
 
-    width:100%;
-
-    height:100%;
-
+     width:100%;
+    height:260px;
     object-fit:cover;
-
     border-radius:10px;
+    display:block;
 
 }
 
