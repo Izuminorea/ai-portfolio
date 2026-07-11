@@ -80,9 +80,23 @@ required>
 </textarea>
 
 <label>Category</label>
-<select name="category">
-<option value="image">Image</option>
-<option value="video">Video</option>
+
+<select name="category" required>
+
+    <option value="history">History Shorts</option>
+
+    <option value="video_ads">Video Ads</option>
+
+    <option value="image_ads">Image Ads</option>
+
+    <option value="ugc">UGC Ads</option>
+
+    <option value="podcast">Podcast Ads</option>
+
+    <option value="motion">Motion Graphics</option>
+
+    <option value="ai_animation">AI Animation</option>
+
 </select>
 
 <label>Upload File</label>
@@ -221,14 +235,19 @@ No portfolio items uploaded yet.
     <label>Type</label>
 
     <select
-        id="editCategory"
-        name="category"
-        required>
+    id="editCategory"
+    name="category"
+    required>
 
-        <option value="image">Image</option>
-        <option value="video">Video</option>
+    <option value="history">History Shorts</option>
+    <option value="video_ads">Video Ads</option>
+    <option value="image_ads">Image Ads</option>
+    <option value="ugc">UGC Ads</option>
+    <option value="podcast">Podcast Ads</option>
+    <option value="motion">Motion Graphics</option>
+    <option value="ai_animation">AI Animation</option>
 
-    </select>
+</select>
 
     <label>Prompt</label>
 

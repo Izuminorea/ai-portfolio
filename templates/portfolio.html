@@ -41,8 +41,12 @@
 <div class="filter-bar">
 
     <button class="filter-btn" onclick="filterCards('all')">All</button>
-    <button class="filter-btn" onclick="filterCards('image')">Image Ads</button>
-    <button class="filter-btn" onclick="filterCards('video')">Video Ads</button>
+    <button class="filter-btn" onclick="filterCards('history')">History Shorts</button>
+    <button class="filter-btn" onclick="filterCards('video_ads')">Video Ads</button>
+    <button class="filter-btn" onclick="filterCards('image_ads')">Image Ads</button>
+    <button class="filter-btn" onclick="filterCards('ugc')">UGC Ads</button>
+    <button class="filter-btn" onclick="filterCards('podcast')">Podcast Ads</button>
+    <button class="filter-btn" onclick="filterCards('motion')">Motion Graphics</button>
 
 </div>
 
@@ -111,6 +115,11 @@
 
     {% endfor %}
 
+</div>
+<div id="empty-message" class="empty-message" style="display:none;">
+    <h2>🚧 No Content Yet</h2>
+    <p>I'm currently working on projects for this category.</p>
+    <p>Please check back soon!</p>
 </div>
 <div id="loader">
 

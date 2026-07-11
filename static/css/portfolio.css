@@ -76,6 +76,23 @@
     object-fit: cover;
 }
 
+.empty-message{
+    width:100%;
+    padding:80px 20px;
+    text-align:center;
+    color:#aaa;
+}
+
+.empty-message h2{
+    color:#fff;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.empty-message p{
+    font-size:18px;
+}
+
 .card-body {
     padding: 15px;
 }

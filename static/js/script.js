@@ -39,23 +39,33 @@ function copyPrompt() {
 function filterCards(category) {
 
     let cards = document.querySelectorAll(".card");
+    let visible = 0;
 
     cards.forEach(card => {
 
         if (category === "all") {
             card.style.display = "block";
+            visible++;
             return;
         }
 
-        let cardCategory = card.getAttribute("data-category");
-
-        if (cardCategory === category) {
+        if (card.dataset.category === category) {
             card.style.display = "block";
+            visible++;
         } else {
             card.style.display = "none";
         }
 
     });
+
+    const empty = document.getElementById("empty-message");
+
+    if (visible === 0) {
+        empty.style.display = "block";
+    } else {
+        empty.style.display = "none";
+    }
+
 }
 
 window.onclick = function(event) {
