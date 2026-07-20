@@ -68,6 +68,44 @@
             </a>
 
         </div>
+        <!-- INTRO VIDEO BUTTON -->
+
+<div class="intro-container">
+
+    <button id="openIntro" class="intro-btn">
+
+        <span class="play-icon">▶</span>
+
+        MEET ME IN 30 SECONDS
+
+    </button>
+
+</div>
+
+
+<!-- INTRO MODAL -->
+<div id="introModal" class="intro-modal">
+
+    <div class="intro-content">
+
+        <span id="closeIntro" class="close-intro">&times;</span>
+
+        <video
+            controls
+            id="introVideo"
+            class="intro-video">
+
+            <source
+                src="{{ url_for('static', filename='videos/0720.mp4') }}"
+                type="video/mp4">
+
+            Your browser does not support video.
+
+        </video>
+
+    </div>
+
+</div>
 
         <!-- TOOLS -->
         <div class="tools">

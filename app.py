@@ -6,10 +6,10 @@ import uuid
 
 app = Flask(__name__)
 
-USERNAME = os.environ.get("ADMIN_USERNAME")
-PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD")
+USERNAME = os.environ.get("ADMIN_USERNAME","admin")
+PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD","qwerty10")
 
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get("SECRET_KEY","jsdfjkdfj")
 
 
 UPLOAD_FOLDER = "static/uploads"

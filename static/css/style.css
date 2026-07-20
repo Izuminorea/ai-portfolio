@@ -363,3 +363,126 @@ flex-wrap:wrap;
     }
 
 }
+
+/* ===========================
+INTRO BUTTON
+=========================== */
+
+.intro-container{
+
+    margin-top:25px;
+
+}
+
+.intro-btn{
+
+    margin-bottom:40px;
+
+    background:linear-gradient(90deg,#5f6fff,#7b61ff);
+
+    border-radius: 14px;
+
+    color:white;
+
+    border:none;
+
+    padding:18px 32px;
+
+    font-size:17.5px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    text-decoration:none;
+
+}
+
+.intro-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:linear-gradient(90deg,#5f6fff,#7b61ff);
+
+    box-shadow:0 10px 30px rgba(95,111,255,.35);
+
+}
+
+
+
+.intro-btn .play-icon{
+
+    color:red;
+
+    font-size:16px;
+
+}
+
+/* ===========================
+MODAL
+=========================== */
+
+
+.intro-modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.85);
+
+    z-index:9999;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.intro-content{
+
+    width: fit-content;
+
+    max-width: 90vw;
+
+    max-height: 90vh;
+
+    margin: auto;
+
+}
+
+.intro-video{
+
+    display: block;
+
+    width: auto;
+
+    max-width: 100%;
+
+    max-height: 85vh;
+
+    border-radius: 18px;
+
+    object-fit: contain;
+
+    background: #000;
+
+}
+
+.close-intro{
+
+    position:absolute;
+
+    top:-45px;
+
+    right:0;
+
+    color:white;
+
+    font-size:38px;
+
+    cursor:pointer;
+
+}
