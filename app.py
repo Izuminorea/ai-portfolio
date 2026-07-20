@@ -6,10 +6,10 @@ import uuid
 
 app = Flask(__name__)
 
-USERNAME = os.environ.get("ADMIN_USERNAME","admin")
-PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD","qwerty10")
+USERNAME = os.environ.get("ADMIN_USERNAME")
+PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD")
 
-app.secret_key = os.environ.get("SECRET_KEY","jsdfjkdfj")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 UPLOAD_FOLDER = "static/uploads"
@@ -17,7 +17,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-
+ 
 # DB HELPER
 def get_db():
 
