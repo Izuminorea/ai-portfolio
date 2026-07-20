@@ -158,35 +158,47 @@
 
     {% if work[4] == "image" %}
 
-        <img
+    <img
+        src="{{ url_for('static', filename='uploads/' + work[3]) }}"
+        alt="{{ work[1] }}">
+
+{% elif work[4] == "video" %}
+
+    <video
+        class="portfolio-video"
+        muted
+        autoplay
+        loop
+        playsinline
+        preload="metadata">
+
+        <source
             src="{{ url_for('static', filename='uploads/' + work[3]) }}"
-            alt="{{ work[1] }}">
+            type="video/mp4">
 
-    {% else %}
+    </video>
 
-        <video
-            class="portfolio-video"
-            muted
-            autoplay
-            loop
-            playsinline
-            preload="metadata">
+{% elif work[4] == "youtube" %}
 
-            <source
-                src="{{ url_for('static', filename='uploads/' + work[3]) }}"
-                type="video/mp4">
+    <iframe
+        width="100%"
+        height="220"
+        src="{{ work[5] }}"
+        title="{{ work[1] }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
 
-        </video>
+{% endif %}
 
-    {% endif %}
+<h4 style="margin-top:10px;">
+    {{ work[1] }}
+</h4>
 
-    <h4 style="margin-top:10px;">
-        {{ work[1] }}
-    </h4>
-
-    <div class="prompt">
-        {{ work[5] if work[5] else "No prompt available" }}
-    </div>
+<div class="prompt">
+    {{ work[6] if work[6] else "No description available" }}
+</div>
 
 </div>
 

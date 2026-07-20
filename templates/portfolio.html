@@ -70,50 +70,64 @@
 <!-- GRID -->
 <div class="portfolio-grid-full">
 
-    {% for item in items %}
+   {% for item in items %}
 
-    <div class="card"
-     data-category="{{ item[2] }}"
-     data-title="{{ item[1] }}"
-     data-prompt="{{ item[5] }}"
-     data-file="{{ url_for('static', filename='uploads/' + item[3]) }}"
-     data-type="{{ item[4] }}"
-     onclick="openModal(this)">
+<div class="card"
+    data-category="{{ item[2] }}"
+    data-title="{{ item[1] }}"
+    data-prompt="{{ item[6] }}"
+    data-file="{{ url_for('static', filename='uploads/' + item[3]) if item[3] else '' }}"
+    data-type="{{ item[4] }}"
+    data-youtube="{{ item[5] }}"
+    onclick="openModal(this)">
 
-        {% if item[4] == "image" %}
+    {% if item[4] == "image" %}
 
-<img
-    src="{{ url_for('static', filename='uploads/' + item[3]) }}"
-    alt="{{ item[1] }}">
+        <img
+            src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+            alt="{{ item[1] }}">
 
-{% else %}
+    {% elif item[4] == "video" %}
 
-<video
-    class="portfolio-video"
-    muted
-    loop
-    autoplay
-    playsinline>
+        <video class="portfolio-video"
+            muted
+            autoplay
+            loop
+            playsinline>
 
-    <source
-        src="{{ url_for('static', filename='uploads/' + item[3]) }}"
-        type="video/mp4">
+            <source
+                src="{{ url_for('static', filename='uploads/' + item[3]) }}"
+                type="video/mp4">
 
-</video>
+        </video>
 
-{% endif %}
+    {% elif item[4] == "youtube" %}
 
-        <div class="card-body">
-            <h3>{{ item[1] }}</h3>
+        <iframe
+            width="100%"
+            height="220"
+            src="{{ item[5] }}"
+            title="{{ item[1] }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
 
-            <p>
-                {{ item[5][:120] if item[5] else 'No description yet' }}
-            </p>
-        </div>
+    {% endif %}
+
+    <div class="card-body">
+
+        <h3>{{ item[1] }}</h3>
+
+        <p>
+            {{ item[6][:120] if item[6] else 'No description yet' }}
+        </p>
 
     </div>
 
-    {% endfor %}
+</div>
+
+{% endfor %}
 
 </div>
 <div id="empty-message" class="empty-message" style="display:none;">
@@ -132,4 +146,4 @@
 <!-- JS -->
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
-</html>
+</html> 

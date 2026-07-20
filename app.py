@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
 from flask import session
+import uuid
 
 app = Flask(__name__)
 
-USERNAME = os.environ.get("ADMIN_USERNAME")
-PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD")
+USERNAME = os.environ.get("ADMIN_USERNAME","admin")
+PASSWORD_LOGIN = os.environ.get("ADMIN_PASSWORD","qwerty10")
 
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get("SECRET_KEY","jhfjdhfjhd")
 
 
 UPLOAD_FOLDER = "static/uploads"
@@ -19,7 +20,12 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # DB HELPER
 def get_db():
-    return sqlite3.connect("database.db")
+
+    conn = sqlite3.connect("database.db")
+
+    conn.row_factory = sqlite3.Row
+
+    return conn
 
 
 # HOME
@@ -110,11 +116,11 @@ def logout():
 
 
 # ADMIN DASHBOARD
+
 @app.route("/admin")
 def admin():
 
     if "admin" not in session:
-
         return redirect("/login")
 
     conn = get_db()
@@ -135,7 +141,8 @@ def admin():
     )
 
 
-# UPLOAD (IMAGE + VIDEO + DESCRIPTION)
+#UPLOAD (IMAGE + VIDEO + YOUTUBE)
+
 @app.route("/admin/upload", methods=["GET", "POST"])
 def upload():
 
@@ -145,33 +152,81 @@ def upload():
         category = request.form["category"]
         description = request.form["description"]
 
-        file = request.files["file"]
-
-        if file.filename == "":
-            return "No file selected"
-
-        filename = file.filename
-        ext = filename.rsplit(".", 1)[1].lower()
-
-        # detect file type
-        if ext in ["jpg", "jpeg", "png", "webp"]:
-            file_type = "image"
-        elif ext in ["mp4", "webm", "mov"]:
-            file_type = "video"
-        else:
-            return "Unsupported file type"
-
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(filepath)
+        file_type = request.form["file_type"]
+        youtube_url = request.form.get("youtube_url", "").strip()
+        print(request.form)
 
         conn = get_db()
         cursor = conn.cursor()
 
+        # ===========================
+        # YOUTUBE
+        # ===========================
+
+        if file_type == "youtube":
+
+            if youtube_url == "":
+                conn.close()
+                return "Please enter a YouTube URL."
+
+            cursor.execute("""
+                INSERT INTO portfolio
+                (title, category, file_name, file_type, youtube_url, description)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (
+                title,
+                category,
+                None,
+                "youtube",
+                youtube_url,
+                description
+            ))
+
+            conn.commit()
+            conn.close()
+
+            return redirect("/admin")
+
+        # ===========================
+        # IMAGE / VIDEO
+        # ===========================
+
+        file = request.files.get("file")
+
+        if not file or file.filename == "":
+            conn.close()
+            return "No file selected."
+
+        filename = file.filename
+
+        ext = filename.rsplit(".", 1)[1].lower()
+
+        if ext in ["jpg", "jpeg", "png", "webp"]:
+            detected_type = "image"
+
+        elif ext in ["mp4", "webm", "mov"]:
+            detected_type = "video"
+
+        else:
+            conn.close()
+            return "Unsupported file type."
+
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
+        file.save(filepath)
+
         cursor.execute("""
             INSERT INTO portfolio
-            (title, category, file_name, file_type, description)
-            VALUES (?, ?, ?, ?, ?)
-        """, (title, category, filename, file_type, description))
+            (title, category, file_name, file_type, youtube_url, description)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            title,
+            category,
+            filename,
+            detected_type,
+            None,
+            description
+        ))
 
         conn.commit()
         conn.close()
@@ -192,28 +247,44 @@ def edit(id):
     category = request.form["category"]
     description = request.form["description"]
 
+    file_type = request.form["file_type"]
+    youtube_url = request.form.get("youtube_url", "").strip()
+
     file = request.files.get("file")
 
-    if file and file.filename != "":
+    # ==========================
+    # YOUTUBE
+    # ==========================
 
-        # Get old file
-        cursor.execute(
-            "SELECT file_name FROM portfolio WHERE id=?",
-            (id,)
-        )
+    if file_type == "youtube":
 
-        old = cursor.fetchone()
+        cursor.execute("""
+            UPDATE portfolio
+            SET
+                title=?,
+                category=?,
+                file_type=?,
+                youtube_url=?,
+                description=?
+            WHERE id=?
+        """, (
+            title,
+            category,
+            file_type,
+            youtube_url,
+            description,
+            id
+        ))
 
-        if old:
-            old_path = os.path.join(
-                app.config["UPLOAD_FOLDER"],
-                old[0]
-            )
+    # ==========================
+    # IMAGE / VIDEO
+    # ==========================
 
-            if os.path.exists(old_path):
-                os.remove(old_path)
+    elif file and file.filename != "":
 
-        filename = file.filename
+        ext = os.path.splitext(file.filename)[1]
+
+        filename = f"{uuid.uuid4().hex}{ext}"
 
         file.save(
             os.path.join(
@@ -228,16 +299,22 @@ def edit(id):
                 title=?,
                 category=?,
                 file_name=?,
+                file_type=?,
+                youtube_url=NULL,
                 description=?
             WHERE id=?
-        """,
-        (
+        """, (
             title,
             category,
             filename,
+            file_type,
             description,
             id
         ))
+
+    # ==========================
+    # NO NEW FILE
+    # ==========================
 
     else:
 
@@ -246,12 +323,15 @@ def edit(id):
             SET
                 title=?,
                 category=?,
+                file_type=?,
+                youtube_url=?,
                 description=?
             WHERE id=?
-        """,
-        (
+        """, (
             title,
             category,
+            file_type,
+            youtube_url if file_type == "youtube" else None,
             description,
             id
         ))
@@ -261,25 +341,44 @@ def edit(id):
 
     return redirect("/admin")
 
-
 # DELETE ITEM + FILE REMOVE
+
 @app.route("/delete/<int:id>")
 def delete(id):
 
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT file_name FROM portfolio WHERE id=?", (id,))
+    cursor.execute(
+        "SELECT file_name, file_type FROM portfolio WHERE id=?",
+        (id,)
+    )
+
     item = cursor.fetchone()
 
     if item:
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], item[0])
-        if os.path.exists(filepath):
-            os.remove(filepath)
 
-    cursor.execute("DELETE FROM portfolio WHERE id=?", (id,))
+        # Burahin lang ang local file kung image/video
+        if item["file_type"] != "youtube" and item["file_name"]:
 
-    conn.commit()
+            filepath = os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                item["file_name"]
+            )
+
+            try:
+                if os.path.exists(filepath):
+                    os.remove(filepath)
+            except PermissionError:
+                print(f"⚠ File is currently in use: {filepath}")
+
+        cursor.execute(
+            "DELETE FROM portfolio WHERE id=?",
+            (id,)
+        )
+
+        conn.commit()
+
     conn.close()
 
     return redirect("/admin")

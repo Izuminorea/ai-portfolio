@@ -97,13 +97,43 @@ required>
 
     <option value="ai_animation">AI Animation</option>
 
+
 </select>
+<label>Media Type</label>
+
+<select
+    id="fileType"
+    name="file_type"
+    onchange="toggleMediaInput()"
+    required>
+
+    <option value="image">Image</option>
+    <option value="video">Video</option>
+    <option value="youtube">YouTube</option>
+
+</select>
+
+
+<div id="uploadBox">
 
 <label>Upload File</label>
 <input
 type="file"
 name="file"
-required>
+accept="image/*,video/*">
+</div>
+
+<!-- YouTube URL -->
+<div id="youtubeBox" style="display:none;">
+
+    <label>YouTube Embed URL</label>
+
+    <input
+        type="text"
+        name="youtube_url"
+        placeholder="https://www.youtube.com/embed/VIDEO_ID">
+
+</div>
 
 <button
 type="submit"
@@ -142,20 +172,29 @@ Upload Portfolio Item
     src="{{ url_for('static', filename='uploads/' + item[3]) }}"
     alt="{{ item[1] }}">
 
-{% else %}
+{% elif item[4] == "video" %}
 
-<video
-    class="admin-video"
-    muted
-    autoplay
-    loop
-    playsinline>
+<video class="admin-video" controls>
 
     <source
         src="{{ url_for('static', filename='uploads/' + item[3]) }}"
         type="video/mp4">
 
+    Your browser does not support the video tag.
+
 </video>
+
+{% elif item[4] == "youtube" %}
+
+<iframe
+    width="100%"
+    height="220"
+    src="{{ item[5] }}"
+    title="{{ item[1] }}"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
 
 {% endif %}
 
@@ -168,13 +207,15 @@ Upload Portfolio Item
 <div class="actions">
 
     <button
-    type="button"
-    class="edit-btn"
-    data-id="{{ item[0] }}"
-    data-title="{{ item[1] }}"
-    data-category="{{ item[2] }}"
-    data-description="{{ item[5] or '' }}"
-    onclick="openEditModal(this)">
+type="button"
+class="edit-btn"
+data-id="{{ item[0] }}"
+data-title="{{ item[1] }}"
+data-category="{{ item[2] }}"
+data-type="{{ item[4] }}"
+data-youtube="{{ item[5] or '' }}"
+data-description="{{ item[6] or '' }}"
+onclick="openEditModal(this)">
 
     Edit
 
@@ -212,69 +253,103 @@ No portfolio items uploaded yet.
 </div>
 
 <div id="editModal" class="modal">
+<div class="modal-content">
 
-    <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
 
-        <span class="close" onclick="closeEditModal()">&times;</span>
+    <h2>Edit Portfolio</h2>
 
-        <h2>Edit Portfolio</h2>
+    <form
+        id="editForm"
+        method="POST"
+        enctype="multipart/form-data">
 
-        <form
-    id="editForm"
-    method="POST"
-    enctype="multipart/form-data">
+        <label>Title</label>
 
-    <label>Title</label>
+        <input
+            type="text"
+            id="editTitle"
+            name="title"
+            required>
 
-    <input
-        type="text"
-        id="editTitle"
-        name="title"
-        required>
+        <label>Category</label>
 
-    <label>Type</label>
+        <select
+            id="editCategory"
+            name="category"
+            required>
 
-    <select
-    id="editCategory"
-    name="category"
-    required>
+            <option value="history">History Shorts</option>
+            <option value="video_ads">Video Ads</option>
+            <option value="image_ads">Image Ads</option>
+            <option value="ugc">UGC Ads</option>
+            <option value="podcast">Podcast Ads</option>
+            <option value="motion">Motion Graphics</option>
+            <option value="ai_animation">AI Animation</option>
 
-    <option value="history">History Shorts</option>
-    <option value="video_ads">Video Ads</option>
-    <option value="image_ads">Image Ads</option>
-    <option value="ugc">UGC Ads</option>
-    <option value="podcast">Podcast Ads</option>
-    <option value="motion">Motion Graphics</option>
-    <option value="ai_animation">AI Animation</option>
+        </select>
+
+        <!-- NEW -->
+
+        <label>Media Type</label>
+
+<select
+    id="editFileType"
+    name="file_type"
+    onchange="toggleEditMedia()">
+
+    <option value="image">Image</option>
+    <option value="video">Video</option>
+    <option value="youtube">YouTube</option>
 
 </select>
 
-    <label>Prompt</label>
+        <!-- END NEW -->
 
-    <textarea
-        id="editDescription"
-        name="description"
-        rows="8"
-        required></textarea>
+        <label>Prompt</label>
 
-    <label>Replace File (Optional)</label>
+        <textarea
+            id="editDescription"
+            name="description"
+            rows="8"
+            required></textarea>
+
+        <!-- Upload -->
+
+        <div id="editUploadBox">
+
+    <label>Upload File</label>
 
     <input
         type="file"
-        id="editFile"
         name="file"
         accept="image/*,video/*">
 
-    <button type="submit">
+</div>
 
-        Save Changes
+        <!-- YouTube -->
 
-    </button>
+        <div id="editYoutubeBox" style="display:none;">
 
-</form>
+    <label>YouTube Embed URL</label>
 
-    </div>
+    <input
+    type="text"
+    id="editYoutube"
+    name="youtube_url"
+    placeholder="https://www.youtube.com/embed/VIDEO_ID">
 
+</div>
+
+        <button type="submit">
+
+            Save Changes
+
+        </button>
+
+    </form>
+
+</div>
 </div>
 
 <a href="/logout" class="website-btn">Logout</a>
